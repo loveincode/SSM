@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hyf.loveincode.bean.Person;
 import com.hyf.loveincode.service.IPersonService;
 
@@ -38,7 +40,8 @@ public class PersonController {
     public String showPersons(Model model){
         List<Person> persons = personService.loadPersons();
         model.addAttribute("persons", persons);
-        return persons.toString();
+        Gson gson = new GsonBuilder().serializeNulls().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		return gson.toJson(persons);
     }
     
     @RequestMapping("/showPersonspage")
