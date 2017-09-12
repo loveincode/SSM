@@ -2,6 +2,8 @@ package com.hyf.loveincode.service;
 
 import java.util.List;
 
+import org.apache.naming.resources.VirtualDirContext;
+
 import com.hyf.loveincode.bean.Person;
 
 /**
@@ -16,4 +18,13 @@ public interface IPersonService {
      * @return
      */
 	public List<Person> loadPersons();
+	
+	public void add(Person person);
+	
+	public void delete(Integer id);
+	
+	public void update(Person person);
+	
+	public Person findByName(String name);
+	
 }

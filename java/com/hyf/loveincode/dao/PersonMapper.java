@@ -10,15 +10,21 @@ import com.hyf.loveincode.bean.Person;
 * @data Sep 12, 2017 12:15:17 PM
 */
 public interface PersonMapper {
-    /**
-     * 插入一条记录
-     * @param person
-     */
-    void insert(Person person);
     
     /**
      * 查询所有
      * @return
      */
     List<Person> queryAll();
+    
+
+    int countAll();
+    
+    void insert(Person person);
+    
+    void delete(Integer id);
+    
+    void update(Person person);
+    
+    Person findByName(String name);
 }

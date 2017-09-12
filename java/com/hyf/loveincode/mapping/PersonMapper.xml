@@ -5,4 +5,24 @@
     <select id="queryAll" resultType="Person" >  
         select * from person  
     </select>
+    
+    <select id="countAll" resultType="int">
+        select count(*) from person;
+    </select>
+    
+    <insert id="insert" parameterType="Person">
+        insert into person(name,age) values(#{name},#{age})
+    </insert>
+    
+    <update id="update" parameterType="Person">
+        update person set name=#{name},age=#{age} where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from person where id=#{id}
+    </delete>
+    
+    <select id="findByName" parameterType="String" resultType="Person">
+        select * from person where name=#{name}
+    </select>
 </mapper>
