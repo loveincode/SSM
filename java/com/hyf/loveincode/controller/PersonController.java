@@ -80,6 +80,7 @@ public class PersonController {
 	@ResponseBody
 	public String update(@PathVariable Integer id, @ModelAttribute("person") Person person, HttpServletRequest request,
 			HttpServletResponse response) {
+		System.out.println(request.getAttribute("name"));
 		ResultVO resultVO = new ResultVO();
 		Person oldperson = personService.findById(id);
 		if (oldperson != null) {
@@ -98,7 +99,7 @@ public class PersonController {
 	}
 
 	// 删除 /id DELETE方式
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String delete(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
 		ResultVO resultVO = new ResultVO();
