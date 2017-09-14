@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +22,8 @@ import com.google.gson.GsonBuilder;
 import com.hyf.loveincode.bean.Person;
 import com.hyf.loveincode.bean.ResultVO;
 import com.hyf.loveincode.service.IPersonService;
+
+import util.ToolsUtil;
 
 /**
  *
@@ -30,15 +34,32 @@ import com.hyf.loveincode.service.IPersonService;
 @RequestMapping("/person")
 public class PersonController {
 
-	private IPersonService personService;
-
-	public IPersonService getPersonService() {
-		return personService;
-	}
-
+	private static Logger log = Logger.getLogger(PersonController.class);
+	
 	@Autowired
-	public void setPersonService(IPersonService personService) {
-		this.personService = personService;
+	private IPersonService personService;
+	
+	/**
+	 * 4.1 person列表
+	 * @param pageNo
+	 * @param pageSize
+	 * @param orderColumn
+	 * @param orderDirection
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/table",method = {RequestMethod.GET},produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String getAll(
+			@RequestParam(value="pageNo",required=true) Integer pageNo,
+			@RequestParam(value="pageSize",required=true) Integer pageSize,
+			@RequestParam(value="orderColumn",required=true) String orderColumn,
+			@RequestParam(value="orderDirection",required=true) String orderDirection,
+			HttpServletRequest request,
+			HttpServletResponse response)
+	{
+		return "12";
 	}
 
 	// 查询 /id get方式
@@ -46,6 +67,7 @@ public class PersonController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody String show(@PathVariable Integer id, HttpServletRequest request,
 			HttpServletResponse response) {
+		log.info("ENTER " + ToolsUtil.getMethodName());
 		ResultVO resultVO = new ResultVO();
 		Person person = new Person();
 		person = personService.findById(id);
@@ -80,13 +102,11 @@ public class PersonController {
 	@ResponseBody
 	public String update(@PathVariable Integer id, @ModelAttribute("person") Person person, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println(request.getAttribute("name"));
 		ResultVO resultVO = new ResultVO();
 		Person oldperson = personService.findById(id);
 		if (oldperson != null) {
 			if (person.getName() != null) {
 				person.setId(oldperson.getId());
-				System.out.println(oldperson.toString());
 				personService.update(person);
 				resultVO.setMessage("更新成功");
 			} else {
@@ -119,7 +139,7 @@ public class PersonController {
 	@ResponseBody
 	// http://localhost:8080/ssm/personController/test
 	public String test() {
-		List<Person> persons = personService.loadPersons();
+		List<Person> persons = personService.queryAll();
 		System.out.println(persons.toString());
 
 		Person person = new Person();
@@ -127,7 +147,7 @@ public class PersonController {
 		person.setName("new");
 		// 增加
 		personService.add(person);
-		persons = personService.loadPersons();
+		persons = personService.queryAll();
 		System.out.println("新增后:");
 		System.out.println(persons.toString());
 		// 查找
@@ -137,13 +157,13 @@ public class PersonController {
 		// 修改
 		person.setName("update");
 		personService.update(person);
-		persons = personService.loadPersons();
+		persons = personService.queryAll();
 		System.out.println("修改后:");
 		System.out.println(persons.toString());
 
 		// 删除
 		personService.delete(person.getId());
-		persons = personService.loadPersons();
+		persons = personService.queryAll();
 		System.out.println("删除后:");
 		System.out.println(persons.toString());
 
@@ -156,7 +176,7 @@ public class PersonController {
 	@ResponseBody
 	// http://localhost:8080/ssm/person/showPerson
 	public String showPersons(Model model) {
-		List<Person> persons = personService.loadPersons();
+		List<Person> persons = personService.queryAll();
 		model.addAttribute("persons", persons);
 		Gson gson = new GsonBuilder().serializeNulls().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		return gson.toJson(persons);
@@ -165,7 +185,7 @@ public class PersonController {
 	@RequestMapping("/showPersonspage")
 	// http://localhost:8080/ssm/person/showPersonspage
 	public ModelAndView showPersonspage() {
-		List<Person> persons = personService.loadPersons();
+		List<Person> persons = personService.queryAll();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("persons", persons);
 		System.out.println(persons.toString());

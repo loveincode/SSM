@@ -17,7 +17,7 @@ public interface IPersonService {
      * 加载全部的person
      * @return
      */
-	public List<Person> loadPersons();
+	public List<Person> queryAll();
 	
 	public void add(Person person);
 	

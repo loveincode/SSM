@@ -17,19 +17,11 @@ import com.hyf.loveincode.service.IPersonService;
 @Service("personService")
 public class PersonServiceImpl implements IPersonService {
 
+	@Autowired
 	private PersonMapper personMapper;
 
-	public PersonMapper getPersonMapper() {
-		return personMapper;
-	}
-
-	@Autowired
-	public void setPersonMapper(PersonMapper personMapper) {
-		this.personMapper = personMapper;
-	}
-
-	@Autowired
-	public List<Person> loadPersons() {
+	@Override
+	public List<Person> queryAll() {
 		return personMapper.queryAll();
 	}
 
