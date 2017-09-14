@@ -1,2 +1,2 @@
 # ssm
-maven 搭建 springmvc spring mybatis
+Springmvc + Spring + Mybatis + 环境 Restful 风格 maven 构建
