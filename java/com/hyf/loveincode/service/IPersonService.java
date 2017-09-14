@@ -6,6 +6,8 @@ import org.apache.naming.resources.VirtualDirContext;
 
 import com.hyf.loveincode.bean.Person;
 
+import util.Page;
+
 /**
 *
 * @author loveincode
@@ -28,4 +30,7 @@ public interface IPersonService {
 	public Person findByName(String name);
 		
 	public Person findById(Integer id);
+	
+	public Page<Person> listByPage(int pageNo, int limit) ;
+	
 }

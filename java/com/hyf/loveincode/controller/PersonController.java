@@ -23,6 +23,7 @@ import com.hyf.loveincode.bean.Person;
 import com.hyf.loveincode.bean.ResultVO;
 import com.hyf.loveincode.service.IPersonService;
 
+import util.Page;
 import util.ToolsUtil;
 
 /**
@@ -49,17 +50,20 @@ public class PersonController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/table",method = {RequestMethod.GET},produces="application/json;charset=UTF-8")
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/list",method = {RequestMethod.GET},produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String getAll(
 			@RequestParam(value="pageNo",required=true) Integer pageNo,
-			@RequestParam(value="pageSize",required=true) Integer pageSize,
-			@RequestParam(value="orderColumn",required=true) String orderColumn,
-			@RequestParam(value="orderDirection",required=true) String orderDirection,
+			@RequestParam(value="pageNum",required=true) Integer pageNum,
 			HttpServletRequest request,
 			HttpServletResponse response)
 	{
-		return "12";
+		ResultVO resultVO = new ResultVO();
+		System.out.println(pageNo+" "+pageNum);
+		Page<Person> pages =   personService.listByPage(pageNo, pageNum);
+		resultVO.setData(pages);
+		return resultVO.toString();
 	}
 
 	// 查询 /id get方式

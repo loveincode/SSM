@@ -2,6 +2,8 @@ package com.hyf.loveincode.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
+
 import com.hyf.loveincode.bean.Person;
 
 /**
@@ -29,4 +31,7 @@ public interface PersonMapper {
 	Person findByName(String name);
 
 	Person findById(Integer id);
+	
+	List<Person> listByPage(RowBounds rowBound);
+	
 }

@@ -2,12 +2,15 @@ package com.hyf.loveincode.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hyf.loveincode.bean.Person;
 import com.hyf.loveincode.dao.PersonMapper;
 import com.hyf.loveincode.service.IPersonService;
+
+import util.Page;
 
 /**
  *
@@ -50,4 +53,23 @@ public class PersonServiceImpl implements IPersonService {
 		return personMapper.findById(id);
 	}
 
+	@Override
+	public Page<Person> listByPage(int pageNo, int pageNum) {
+		Page<Person> page = new Page<Person>(pageNo,pageNum);
+
+        int offset = page.getOffsets();
+        RowBounds rowBound = new RowBounds(offset, pageNum);
+        System.err.println(rowBound.getOffset()+" rowbound "+rowBound.getLimit());
+        
+        List<Person> users = personMapper.listByPage(rowBound);
+        page.setRows(users);
+        int total = personMapper.countAll();
+        page.setTotal(total) ;
+        if(offset >= page.getTotal()){
+            page.setPageNo(page.getTotalPages());
+        }
+        return page ;
+	}
+
+	
 }
