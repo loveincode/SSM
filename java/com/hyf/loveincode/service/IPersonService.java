@@ -26,5 +26,6 @@ public interface IPersonService {
 	public void update(Person person);
 	
 	public Person findByName(String name);
-	
+		
+	public Person findById(Integer id);
 }

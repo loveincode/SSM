@@ -25,4 +25,8 @@
     <select id="findByName" parameterType="String" resultType="Person">
         select * from person where name=#{name}
     </select>
+    
+    <select id="findById" parameterType="int" resultType="Person">
+        select * from person where id=#{id}
+    </select>
 </mapper>
