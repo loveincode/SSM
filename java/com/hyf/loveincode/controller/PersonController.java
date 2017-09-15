@@ -1,6 +1,8 @@
 package com.hyf.loveincode.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,14 +45,11 @@ public class PersonController {
 	/**
 	 * 4.1 person列表
 	 * @param pageNo
-	 * @param pageSize
-	 * @param orderColumn
-	 * @param orderDirection
+	 * @param pageNum
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/list",method = {RequestMethod.GET},produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public String getAll(
@@ -139,6 +138,21 @@ public class PersonController {
 		return resultVO.toString();
 	}
 
+	@RequestMapping("/test2")
+	@ResponseBody
+	// http://localhost:8080/ssm/person/test2
+	public String test2() {
+		ResultVO resultVO = new ResultVO();
+		Map<String, Object> params = new HashMap<String,Object>();
+		params.put("name", "12");
+		params.put("start", 0);
+		params.put("limit", 10);
+		List<Person> persons = personService.listByParams(params);
+		resultVO.setData(persons);
+		return resultVO.toString();
+	}
+
+	
 	@RequestMapping("/test")
 	@ResponseBody
 	// http://localhost:8080/ssm/personController/test

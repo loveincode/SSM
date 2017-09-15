@@ -1,6 +1,7 @@
 package com.hyf.loveincode.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,12 @@ public class PersonServiceImpl implements IPersonService {
             page.setPageNo(page.getTotalPages());
         }
         return page ;
+	}
+
+	@Override
+	public List<Person> listByParams(Map<String, Object> params) {
+		List<Person> users = personMapper.listByParams(params);
+		return  users;
 	}
 
 	

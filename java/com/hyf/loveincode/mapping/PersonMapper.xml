@@ -37,5 +37,9 @@
         select * from person
     </select>
     
+    <select id="listByParams" parameterType="map" resultType="Person">
+        select * from person u where name like CONCAT('%',#{name},'%') limit #{start}, #{limit}
+ 	</select>
+    
     
 </mapper>

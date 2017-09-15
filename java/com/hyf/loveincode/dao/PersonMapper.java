@@ -1,6 +1,7 @@
 package com.hyf.loveincode.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 
@@ -33,5 +34,8 @@ public interface PersonMapper {
 	Person findById(Integer id);
 	
 	List<Person> listByPage(RowBounds rowBound);
+	
+	List<Person> listByParams(Map<String,Object> params);
+	
 	
 }

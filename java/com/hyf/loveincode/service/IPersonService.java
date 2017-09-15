@@ -1,6 +1,7 @@
 package com.hyf.loveincode.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.naming.resources.VirtualDirContext;
 
@@ -32,5 +33,7 @@ public interface IPersonService {
 	public Person findById(Integer id);
 	
 	public Page<Person> listByPage(int pageNo, int limit) ;
+	
+	public List<Person> listByParams(Map<String,Object> params);
 	
 }
