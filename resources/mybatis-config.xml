@@ -10,5 +10,6 @@
     </typeAliases>     
       <mappers>  
         <mapper resource="com/hyf/loveincode/mapping/PersonMapper.xml" />  
+        <mapper resource="com/hyf/loveincode/mapping/T_userMapper.xml" />  
     </mappers>
 </configuration> 
