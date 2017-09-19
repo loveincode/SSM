@@ -69,10 +69,11 @@ public class MethodCacheInterceptor implements MethodInterceptor {
         }
         Object[] arguments = invocation.getArguments();
         String key = getCacheKey(targetName, methodName, arguments);
-        logger.debug("redisKey: " + key);
+        logger.info("redisKey: " + key);
         try {
             // 判断是否有缓存
             if (redisUtil.exists(key)) {
+            	logger.info("存在: " + key+"  直接取 get key");
                 return redisUtil.get(key);
             }
             // 写入缓存
@@ -82,6 +83,7 @@ public class MethodCacheInterceptor implements MethodInterceptor {
                 final Object tvalue = value;
                 new Thread(new Runnable() {
                     public void run() {
+                    	logger.info("不存在: " + tkey+"  set  tkey");
                         if (tkey.startsWith("com.service.impl.xxxRecordManager")) {
                             redisUtil.set(tkey, tvalue, xxxRecordManagerTime);
                         } else if (tkey.startsWith("com.service.impl.xxxSetRecordManager")) {

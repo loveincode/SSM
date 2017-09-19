@@ -67,7 +67,7 @@
     </sql>
     <sql id="Base_Column_List">
     id, content
-  </sql>
+  	</sql>
     <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hyf.loveincode.bean.RediscontentExample">
         select
         <if test="distinct">
