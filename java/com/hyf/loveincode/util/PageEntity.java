@@ -9,7 +9,11 @@ import java.util.List;
 * @data Sep 19, 2017 2:07:24 PM
 */
 public class PageEntity<T> implements Serializable {
-    private List<T> list;// 分页后的数据
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<T> list;// 分页后的数据
     private Integer count;
 
     public Integer getCount() {
