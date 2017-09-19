@@ -8,7 +8,11 @@ import java.io.Serializable;
 * @data Sep 19, 2017 10:45:37 AM
 */
 public class T_user implements Serializable {
-    private Integer id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
     private String userName;
     private String password;
     private Integer roleId ;

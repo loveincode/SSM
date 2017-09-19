@@ -1,4 +1,4 @@
-package util;
+package com.hyf.loveincode.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;

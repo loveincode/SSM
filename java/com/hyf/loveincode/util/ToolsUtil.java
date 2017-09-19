@@ -1,4 +1,4 @@
-package util;
+package com.hyf.loveincode.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

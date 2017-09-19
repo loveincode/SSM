@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import com.hyf.loveincode.bean.Person;
 import com.hyf.loveincode.dao.PersonMapper;
 import com.hyf.loveincode.service.IPersonService;
-
-import util.Page;
+import com.hyf.loveincode.util.Page;
 
 /**
  *
